@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fengchen Wang – Fun</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background: #fff;
+    }
+    #wrap { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+    nav { margin-bottom: 40px; border-bottom: 1px solid #e8e8e8; padding-bottom: 10px; }
+    nav a { display: inline-block; margin-right: 20px; font-size: 1rem; color: #555; text-decoration: none; }
+    nav a:hover { color: #000; text-decoration: underline; }
+    nav a.active { color: #000; font-weight: 700; }
+    a { color: #2a5db0; }
+    a:hover { color: #1a3a7a; }
+    h1.page-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 28px; color: #111; }
+    #site-footer { margin-top: 60px; padding-top: 16px; border-top: 1px solid #e8e8e8; font-size: 0.8rem; color: #999; }
+
+    /* Two-column fun layout */
+    #fun-layout {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* Left: tree subtab list */
+    #fun-sidebar {
+      border-right: 1px solid #eee;
+      padding-right: 24px;
+    }
+    #fun-sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #fun-sidebar ul li {
+      margin-bottom: 2px;
+    }
+    #fun-sidebar ul li a {
+      display: block;
+      padding: 5px 8px 5px 16px;
+      font-size: 0.92rem;
+      color: #555;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      border-radius: 0 3px 3px 0;
+      position: relative;
+      transition: color 0.15s;
+    }
+    #fun-sidebar ul li a::before {
+      content: "▸";
+      position: absolute;
+      left: 2px;
+      font-size: 0.7rem;
+      color: #ccc;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #fun-sidebar ul li a:hover {
+      color: #111;
+      text-decoration: none;
+    }
+    #fun-sidebar ul li a.active {
+      color: #111;
+      font-weight: 700;
+      border-left-color: #111;
+    }
+    #fun-sidebar ul li a.active::before {
+      color: #111;
+    }
+
+    /* Right: content panels */
+    #fun-content .panel { display: none; }
+    #fun-content .panel.visible { display: block; }
+    #fun-content .panel h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 12px;
+    }
+    #fun-content .panel p {
+      font-size: 0.95rem;
+      color: #555;
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      #fun-layout { grid-template-columns: 1fr; gap: 24px; }
+      #fun-sidebar { border-right: none; border-bottom: 1px solid #eee; padding-right: 0; padding-bottom: 16px; }
+      #fun-sidebar ul { display: flex; flex-wrap: wrap; gap: 8px; }
+      #fun-sidebar ul li a { border-left: none; border-bottom: 2px solid transparent; padding: 4px 10px; }
+      #fun-sidebar ul li a.active { border-bottom-color: #111; border-left-color: transparent; }
+      #fun-sidebar ul li a::before { display: none; }
+      #wrap { padding: 24px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+<div id="wrap">
+  <nav>
+    <a href="index.html">Fengchen Wang (王枫辰)</a>
+    <a href="news.html">News</a>
+    <a href="publications.html">Publications</a>
+    <a href="projects.html">Projects</a>
+    <a href="log.html">Log</a>
+    <a href="fun.html" class="active">Fun</a>
+  </nav>
+
+  <div id="content">
+    <h1 class="page-title">Fun</h1>
+    <div id="fun-layout">
+
+      <!-- Left: subtab tree -->
+      <div id="fun-sidebar">
+        <ul>
+          <li><a href="#" class="subtab active" data-panel="travel">Travel</a></li>
+          <li><a href="#" class="subtab" data-panel="pilot">Private Pilot</a></li>
+          <li><a href="#" class="subtab" data-panel="calligraphy">Calligraphy</a></li>
+          <li><a href="#" class="subtab" data-panel="music">Music</a></li>
+        </ul>
+      </div>
+
+      <!-- Right: content panels -->
+      <div id="fun-content">
+        <div class="panel" id="panel-calligraphy">
+          <h2>Calligraphy</h2>
+          <p>Content coming soon.</p>
+        </div>
+        <div class="panel" id="panel-pilot">
+          <h2>Private Pilot</h2>
+          <p>Content coming soon.</p>
+        </div>
+        <div class="panel" id="panel-music">
+          <h2>Music</h2>
+          <p>Content coming soon.</p>
+        </div>
+        <div class="panel visible" id="panel-travel">
+          <h2>Travel</h2>
+          <p>Content coming soon.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.subtab').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Update active subtab
+      document.querySelectorAll('.subtab').forEach(function(l) { l.classList.remove('active'); });
+      this.classList.add('active');
+      // Show corresponding panel
+      document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('visible'); });
+      document.getElementById('panel-' + this.dataset.panel).classList.add('visible');
+    });
+  });
+</script>
+</body>
+</html>
