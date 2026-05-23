@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placeholder: Learning Note #1 – Fengchen Wang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background: #fff;
+    }
+    #wrap { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+    nav.site-nav { margin-bottom: 40px; border-bottom: 1px solid #e8e8e8; padding-bottom: 10px; }
+    nav.site-nav a { display: inline-block; margin-right: 20px; font-size: 1rem; color: #555; text-decoration: none; }
+    nav.site-nav a:hover { color: #000; text-decoration: underline; }
+    nav.site-nav a.active { color: #000; font-weight: 700; }
+    a { color: #2a5db0; }
+    a:hover { color: #1a3a7a; }
+    strong { font-weight: 700; }
+
+    .post-layout {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .post-article { min-width: 0; }
+    .post-back { font-size: 0.85rem; margin-bottom: 18px; }
+    .post-back a { color: #888; text-decoration: none; }
+    .post-back a:hover { color: #000; text-decoration: underline; }
+
+    .post-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .post-meta { font-size: 0.85rem; color: #888; margin-bottom: 8px; }
+    .post-tags { margin-bottom: 28px; }
+    .tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+    .tag-note  { background: #e8f0fb; color: #2a5db0; }
+    .tag-post  { background: #e8f5ee; color: #276749; }
+    .tag-blog  { background: #f3eafb; color: #6d3d91; }
+    .tag-read  { background: #fef3e2; color: #8a6019; }
+    .tag-tech  { background: #fbe8e8; color: #9c2a2a; }
+
+    .post-body { font-size: 0.97rem; color: #333; }
+    .post-body h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #111;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      scroll-margin-top: 20px;
+    }
+    .post-body h3 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #222;
+      margin-top: 22px;
+      margin-bottom: 8px;
+      scroll-margin-top: 20px;
+    }
+    .post-body p { margin-bottom: 14px; }
+    .post-body ul, .post-body ol { margin: 8px 0 14px 24px; }
+    .post-body li { margin-bottom: 4px; }
+    .post-body code {
+      background: #f5f5f5;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.88em;
+    }
+    .post-body pre {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 12px 0 18px;
+      font-size: 0.88em;
+      line-height: 1.5;
+    }
+    .post-body pre code { background: transparent; padding: 0; }
+    .post-body blockquote {
+      border-left: 3px solid #ddd;
+      padding-left: 14px;
+      margin: 14px 0;
+      color: #666;
+      font-style: italic;
+    }
+
+    .post-references {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #e8e8e8;
+    }
+    .post-references h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 12px;
+    }
+    .post-references ol {
+      margin-left: 22px;
+      font-size: 0.9rem;
+      color: #444;
+    }
+    .post-references li { margin-bottom: 8px; }
+
+    .post-toc {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      font-size: 0.85rem;
+      border-left: 2px solid #eee;
+      padding-left: 14px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+    }
+    .post-toc-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 10px;
+    }
+    .post-toc ul { list-style: none; padding: 0; margin: 0; }
+    .post-toc li { margin-bottom: 6px; line-height: 1.4; }
+    .post-toc li.toc-h3 { padding-left: 12px; font-size: 0.82rem; }
+    .post-toc a {
+      color: #666;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -16px;
+      padding-left: 14px;
+      display: block;
+    }
+    .post-toc a:hover { color: #111; }
+    .post-toc a.active {
+      color: #111;
+      font-weight: 700;
+      border-left-color: #2a5db0;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #2a5db0;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s, background 0.2s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .back-to-top:hover { background: #1a3a7a; }
+
+    @media (max-width: 900px) {
+      .post-layout { grid-template-columns: 1fr; gap: 24px; }
+      .post-toc {
+        position: static;
+        max-height: none;
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding-left: 0;
+        padding-top: 14px;
+        margin-bottom: 20px;
+        order: -1;
+      }
+    }
+    @media (max-width: 600px) {
+      #wrap { padding: 24px 20px 60px; }
+      .back-to-top { bottom: 16px; right: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div id="wrap">
+  <nav class="site-nav">
+    <a href="../index.html">Fengchen Wang (王枫辰)</a>
+    <a href="../news.html">News</a>
+    <a href="../publications.html">Publications</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../log.html" class="active">Log</a>
+    <a href="../fun.html">Fun</a>
+  </nav>
+
+  <div class="post-layout">
+    <article class="post-article">
+      <div class="post-back"><a href="../log.html">&larr; Back to Log</a></div>
+
+      <h1 class="post-title">Model Predictive Control for Vehicle Path Tracking: A Practitioner's Note</h1>
+      <div class="post-meta">
+        Created <time datetime="2026-05-22">May 22, 2026</time>
+      </div>
+      <div class="post-tags">
+        <span class="tag tag-note">Note</span>
+        <span class="tag tag-tech">Tech</span>
+      </div>
+
+      <div class="post-body" id="post-body">
+        <h2 id="overview">Overview</h2>
+        <p>Model Predictive Control (MPC) keeps showing up in the path-tracking literature for autonomous vehicles, and after a few weeks of digging through papers, prototyping in MATLAB, and benchmarking against a tuned PID + feedforward stack, I wanted to capture what I learned. This note is mostly a memo to my future self — what MPC actually buys you over simpler controllers, what the implementation tradeoffs are, and where the formulation tends to get tricky in practice.</p>
+        <p>The short version: MPC is not magic, and it's not always the right answer. It's a tool that solves a constrained optimization problem at every time step, and its value depends entirely on whether your problem actually has constraints that a non-predictive controller cannot respect. For lateral path tracking with steering rate limits, lateral acceleration limits, and a known preview, the answer is often yes — and the gap to a hand-tuned cascade controller can be meaningful.</p>
+
+        <h2 id="problem-setup">Problem Setup</h2>
+        <p>Consider a vehicle traveling along a reference path defined parametrically by arc length. The lateral controller's job is to choose a steering command at each control step such that the vehicle's lateral deviation and heading error relative to the path stay small, without violating actuator limits or comfort bounds, and without commanding maneuvers that the tires cannot deliver. The longitudinal controller is usually handled separately, often by a simpler PID or feedforward-PID combination on speed.</p>
+        <p>Two things make this problem interesting. First, the vehicle has nontrivial dynamics — a bicycle model is the usual starting point, but the linearization changes with longitudinal speed, so any LTI design will be tuned only for one operating point. Second, the path itself provides a preview: if I know the curvature 50 meters ahead, I should start turning earlier, not wait until the error has grown. Classical feedback alone cannot exploit that preview cleanly.</p>
+
+        <h3 id="bicycle-model">The Bicycle Model</h3>
+        <p>The dynamic bicycle model treats the vehicle as two lumped axles and assumes small slip angles. State variables typically include lateral position error, heading error, lateral velocity, and yaw rate. With longitudinal speed treated as a slowly varying parameter, the model is linear time-varying. For low-speed, low-curvature regimes a kinematic bicycle model is enough; once you go above ~20 m/s and start approaching the tire limits, the dynamic version becomes important because the kinematic model assumes zero slip and overpredicts achievable curvature.</p>
+        <p>A common pitfall: when discretizing the dynamic bicycle for MPC, the choice of sample time interacts with the prediction horizon. Too short and the QP is unnecessarily large; too long and the discrete model misrepresents the high-frequency yaw dynamics. I usually start with 50 ms and a 2-second horizon, then sweep both.</p>
+
+        <h3 id="cost-function">Cost Function</h3>
+        <p>The standard MPC cost is a quadratic sum over the prediction horizon: weighted squared lateral error, squared heading error, squared steering command, and squared steering rate. The weights are interpretable — bigger lateral-error weight means tighter tracking at the cost of more aggressive steering — but they are not invariant across speeds, which is why some implementations schedule them with longitudinal velocity.</p>
+        <p>I have started preferring a formulation that explicitly penalizes the <em>change</em> in steering rather than the steering itself, because it produces smoother commands and behaves better at trim. The downside is that you now need to carry the previous steering command as part of the augmented state.</p>
+
+        <h2 id="constraints">Constraints</h2>
+        <p>Constraints are where MPC earns its keep, so it's worth being deliberate about them.</p>
+
+        <h3 id="actuator-constraints">Actuator Constraints</h3>
+        <p>Steering angle limits and steering rate limits are the obvious ones. Both should be encoded as hard constraints in the QP. If your steering actuator has a known bandwidth, you may also want to include a soft constraint that smooths the command — though usually a steering-rate cost term handles this more cleanly than a hard bandwidth constraint.</p>
+
+        <h3 id="dynamic-constraints">Dynamic Constraints</h3>
+        <p>Lateral acceleration limits are the most commonly cited example. You can express them either as state constraints (cap predicted lateral acceleration at each step in the horizon) or as soft constraints with slack variables. I always use soft constraints here: a hard constraint that goes infeasible because of a bumpy curvature estimate will brick your controller, and you almost certainly want the vehicle to keep going rather than throw an exception.</p>
+        <p>Tire friction limits are conceptually similar but harder to write down precisely, because the available friction depends on road conditions you do not measure directly. A common practical approach is to use a conservative friction estimate combined with a soft lateral acceleration bound that approximates the friction circle constraint.</p>
+
+        <h3 id="comfort-constraints">Comfort Constraints</h3>
+        <p>Jerk limits, both lateral and longitudinal, can be added as constraints on the difference between consecutive predicted accelerations. In passenger vehicles this matters more than the literature usually acknowledges. A controller that respects acceleration limits but produces 5 m/s³ jerk will feel terrible even though every metric on paper looks fine.</p>
+
+        <h2 id="solving-the-qp">Solving the QP</h2>
+        <p>If the model is linear and the cost is quadratic and constraints are linear, the resulting subproblem is a quadratic program (QP) that solvers like OSQP, qpOASES, and HPIPM can handle in microseconds on modern hardware. For a horizon of 40 steps with maybe 4 states and 1 input, the QP has on the order of 200 variables — small by optimization standards, large enough that you do not want to write your own solver.</p>
+        <p>For nonlinear models, the natural extension is nonlinear MPC (NMPC), usually solved by sequential quadratic programming or interior-point methods on the full nonlinear program. The compute cost goes up by an order of magnitude or more, and warm-starting matters a lot. In most real-time vehicle deployments people stick with linear time-varying MPC and re-linearize each step around the predicted trajectory.</p>
+
+        <h3 id="warm-starting">Warm Starting</h3>
+        <p>The solution from the previous step, shifted by one sample, is a very good initial guess for the current step. Warm-starting in this way is the single highest-leverage trick for keeping QP solve times stable. Without it, occasional outliers can blow past your deadline; with it, the worst-case time is often within 2× the median.</p>
+
+        <h3 id="recovery-and-fallback">Recovery and Fallback</h3>
+        <p>The MPC controller must have a fallback path for the case where the QP fails to solve or produces an infeasible answer within the deadline. The simplest fallback is a tuned PID controller running in parallel — if MPC times out, you switch over for a step. This sounds redundant but in practice it has saved my bacon more than once on platforms where the compute budget is tight.</p>
+
+        <h2 id="implementation-notes">Implementation Notes</h2>
+        <p>A few things that bit me that I would have liked to have read in a textbook somewhere.</p>
+
+        <h3 id="curvature-estimation">Curvature Estimation</h3>
+        <p>The reference path is typically a polyline or a clothoid spline. Computing curvature by finite differencing the heading is noisy and tends to produce spurious oscillations in the MPC command. Fit a local polynomial or use a low-pass filter on the curvature signal, and the resulting tracking error tightens noticeably.</p>
+
+        <h3 id="time-varying-linearization">Time-Varying Linearization</h3>
+        <p>If you re-linearize the bicycle model at every step around the current vehicle state, you have to be careful about numerical conditioning of the resulting discrete-time system, especially at low speeds where the model becomes nearly singular. I clamp the longitudinal speed to a minimum (typically 1 m/s) for the linearization purposes only — the actual controller still tracks lower speeds via a kinematic fallback.</p>
+
+        <h3 id="testing-strategy">Testing Strategy</h3>
+        <p>The standard battery of tests I run before considering an MPC controller production-grade:</p>
+        <ul>
+          <li>Step in lateral offset at multiple speeds, verifying overshoot and settling time</li>
+          <li>Curvature step (e.g., entering a constant-radius curve), verifying steady-state error and preview behavior</li>
+          <li>Sinusoidal lateral offset disturbance, verifying frequency response shape</li>
+          <li>Sustained high lateral acceleration to verify constraint behavior near saturation</li>
+          <li>Aggressive double lane change at varying speeds for stability margin</li>
+          <li>Worst-case path curvature scenarios to verify QP solve-time bounds</li>
+        </ul>
+
+        <h2 id="comparison-with-alternatives">Comparison With Alternatives</h2>
+        <p>People reach for MPC reflexively in academic papers, but it is worth being honest about when it pays off versus simpler alternatives.</p>
+
+        <h3 id="vs-pid">Versus PID + Feedforward</h3>
+        <p>A well-tuned PID on lateral error, combined with curvature feedforward, is dramatically simpler than MPC and works fine for many path-tracking scenarios at modest speeds. Where it struggles: respecting actuator rate limits cleanly, handling tight curves at the edge of the friction circle, and exploiting preview information when curvature changes rapidly.</p>
+
+        <h3 id="vs-lqr">Versus LQR</h3>
+        <p>LQR gives you the optimal linear controller for a quadratic cost and unconstrained dynamics. It is faster than MPC because there is no online optimization — just a precomputed gain. If your problem is genuinely unconstrained and the operating point is stable, LQR is hard to beat. The moment constraints become active, however, LQR has no clean way to handle them; you end up adding ad hoc anti-windup logic that approximates what MPC does naturally.</p>
+
+        <h3 id="vs-pure-pursuit">Versus Pure Pursuit and Stanley</h3>
+        <p>Geometric controllers (pure pursuit, Stanley) are popular because they are simple to implement and have intuitive parameters. They work very well at low speeds and on well-conditioned paths. They tend to break down at high speeds because they treat the vehicle as a kinematic point, and they have no clean way to incorporate actuator limits or comfort bounds. For a hobbyist robot or a low-speed AV, they're fine. For highway-speed passenger vehicles, MPC or a properly tuned dynamic controller is more defensible.</p>
+
+        <h2 id="open-questions">Open Questions</h2>
+        <p>Things I want to look into next:</p>
+        <ul>
+          <li><strong>Robust MPC:</strong> how to formally handle parameter uncertainty (mass, tire stiffness, friction) without becoming pathologically conservative. Tube MPC seems promising but I have not implemented it.</li>
+          <li><strong>Learning-based MPC:</strong> using a learned residual model to capture unmodeled dynamics. Interesting in principle, scary in practice given the verification challenges.</li>
+          <li><strong>Multi-vehicle MPC:</strong> coupling MPC controllers across multiple vehicles for cooperative driving. This is what my Ph.D. work touched on, and there's still room for cleaner formulations.</li>
+          <li><strong>Solver determinism:</strong> understanding worst-case behavior of QP solvers when the warm start is far from optimal. There are papers on this; I have not absorbed them yet.</li>
+        </ul>
+
+        <h2 id="takeaways">Takeaways</h2>
+        <p>If I had to compress everything above into a few lines: MPC is a structured way to write down what you actually want from a controller — track the path, respect the limits, prefer smooth commands — and let an optimizer figure out the trade-offs at each step. It is not a free lunch; you pay in implementation complexity, compute, and tuning effort. But for problems where constraints really do matter, the gap to simpler controllers is real, and the resulting design is easier to argue about than a stack of hand-tuned gains.</p>
+        <p>The most underrated practical advice I have absorbed: spend more time on the cost function and the constraint design than on the solver. Solvers are commodity; problem formulation is not.</p>
+      </div>
+
+      <section class="post-references">
+        <h2>References</h2>
+        <ol>
+          <li>Rawlings, J. B., Mayne, D. Q., and Diehl, M. M., <em>Model Predictive Control: Theory, Computation, and Design</em>, 2nd ed., Nob Hill Publishing, 2017.</li>
+          <li>Borrelli, F., Bemporad, A., and Morari, M., <em>Predictive Control for Linear and Hybrid Systems</em>, Cambridge University Press, 2017.</li>
+          <li>Falcone, P., Borrelli, F., Asgari, J., Tseng, H. E., and Hrovat, D., "Predictive active steering control for autonomous vehicle systems," <em>IEEE Transactions on Control Systems Technology</em>, vol. 15, no. 3, pp. 566–580, 2007.</li>
+          <li>Stellato, B., Banjac, G., Goulart, P., Bemporad, A., and Boyd, S., "OSQP: an operator splitting solver for quadratic programs," <em>Mathematical Programming Computation</em>, vol. 12, no. 4, pp. 637–672, 2020.</li>
+          <li>Snider, J. M., "Automatic steering methods for autonomous automobile path tracking," Robotics Institute, Carnegie Mellon University, Tech. Rep. CMU-RI-TR-09-08, 2009.</li>
+          <li>Kabzan, J., et al., "Learning-based model predictive control for autonomous racing," <em>IEEE Robotics and Automation Letters</em>, vol. 4, no. 4, pp. 3363–3370, 2019.</li>
+        </ol>
+      </section>
+    </article>
+
+    <aside class="post-toc" id="toc">
+      <div class="post-toc-title">On this page</div>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+</div>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">&uarr;</button>
+
+<script>
+  (function() {
+    var body = document.getElementById('post-body');
+    var tocList = document.getElementById('toc-list');
+    if (!body || !tocList) return;
+    var headings = body.querySelectorAll('h2, h3');
+    var items = [];
+    headings.forEach(function(h) {
+      if (!h.id) {
+        h.id = h.textContent.trim().toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .replace(/\s+/g, '-');
+      }
+      var li = document.createElement('li');
+      li.className = h.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      tocList.appendChild(li);
+      items.push({ id: h.id, link: a, el: h });
+    });
+
+    if (items.length === 0) return;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          items.forEach(function(it) { it.link.classList.remove('active'); });
+          var match = items.find(function(it) { return it.id === e.target.id; });
+          if (match) match.link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+    items.forEach(function(it) { io.observe(it.el); });
+  })();
+
+  (function() {
+    var btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    function onScroll() {
+      if (window.scrollY > 300) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    onScroll();
+  })();
+</script>
+</body>
+</html>

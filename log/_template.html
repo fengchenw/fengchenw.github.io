@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TEMPLATE: copy this file and fill in title, date, tags, and content.
+       The side table of contents is generated automatically from <h2> and <h3>
+       tags inside #post-body. The back-to-top button appears after scrolling. -->
+  <title>Post Title – Fengchen Wang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background: #fff;
+    }
+    #wrap { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+    nav.site-nav { margin-bottom: 40px; border-bottom: 1px solid #e8e8e8; padding-bottom: 10px; }
+    nav.site-nav a { display: inline-block; margin-right: 20px; font-size: 1rem; color: #555; text-decoration: none; }
+    nav.site-nav a:hover { color: #000; text-decoration: underline; }
+    nav.site-nav a.active { color: #000; font-weight: 700; }
+    a { color: #2a5db0; }
+    a:hover { color: #1a3a7a; }
+    strong { font-weight: 700; }
+
+    /* Two-column layout: article + sticky side TOC */
+    .post-layout {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Article */
+    .post-article { min-width: 0; }
+    .post-back { font-size: 0.85rem; margin-bottom: 18px; }
+    .post-back a { color: #888; text-decoration: none; }
+    .post-back a:hover { color: #000; text-decoration: underline; }
+
+    .post-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .post-meta { font-size: 0.85rem; color: #888; margin-bottom: 8px; }
+    .post-tags { margin-bottom: 28px; }
+    .tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+    .tag-note  { background: #e8f0fb; color: #2a5db0; }
+    .tag-post  { background: #e8f5ee; color: #276749; }
+    .tag-blog  { background: #f3eafb; color: #6d3d91; }
+    .tag-read  { background: #fef3e2; color: #8a6019; }
+    .tag-tech  { background: #fbe8e8; color: #9c2a2a; }
+
+    .post-body { font-size: 0.97rem; color: #333; }
+    .post-body h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #111;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      scroll-margin-top: 20px;
+    }
+    .post-body h3 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #222;
+      margin-top: 22px;
+      margin-bottom: 8px;
+      scroll-margin-top: 20px;
+    }
+    .post-body p { margin-bottom: 14px; }
+    .post-body ul, .post-body ol { margin: 8px 0 14px 24px; }
+    .post-body li { margin-bottom: 4px; }
+    .post-body code {
+      background: #f5f5f5;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.88em;
+    }
+    .post-body pre {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 12px 0 18px;
+      font-size: 0.88em;
+      line-height: 1.5;
+    }
+    .post-body pre code { background: transparent; padding: 0; }
+    .post-body blockquote {
+      border-left: 3px solid #ddd;
+      padding-left: 14px;
+      margin: 14px 0;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* References */
+    .post-references {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #e8e8e8;
+    }
+    .post-references h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 12px;
+    }
+    .post-references ol {
+      margin-left: 22px;
+      font-size: 0.9rem;
+      color: #444;
+    }
+    .post-references li { margin-bottom: 8px; }
+
+    /* Side TOC */
+    .post-toc {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      font-size: 0.85rem;
+      border-left: 2px solid #eee;
+      padding-left: 14px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+    }
+    .post-toc-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 10px;
+    }
+    .post-toc ul { list-style: none; padding: 0; margin: 0; }
+    .post-toc li { margin-bottom: 6px; line-height: 1.4; }
+    .post-toc li.toc-h3 { padding-left: 12px; font-size: 0.82rem; }
+    .post-toc a {
+      color: #666;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -16px;
+      padding-left: 14px;
+      display: block;
+    }
+    .post-toc a:hover { color: #111; }
+    .post-toc a.active {
+      color: #111;
+      font-weight: 700;
+      border-left-color: #2a5db0;
+    }
+
+    /* Back-to-top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #2a5db0;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s, background 0.2s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .back-to-top:hover { background: #1a3a7a; }
+
+    @media (max-width: 900px) {
+      .post-layout { grid-template-columns: 1fr; gap: 24px; }
+      .post-toc {
+        position: static;
+        max-height: none;
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding-left: 0;
+        padding-top: 14px;
+        margin-bottom: 20px;
+        order: -1;
+      }
+    }
+    @media (max-width: 600px) {
+      #wrap { padding: 24px 20px 60px; }
+      .back-to-top { bottom: 16px; right: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div id="wrap">
+  <nav class="site-nav">
+    <a href="../index.html">Fengchen Wang (王枫辰)</a>
+    <a href="../news.html">News</a>
+    <a href="../publications.html">Publications</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../log.html" class="active">Log</a>
+    <a href="../fun.html">Fun</a>
+  </nav>
+
+  <div class="post-layout">
+    <article class="post-article">
+      <div class="post-back"><a href="../log.html">&larr; Back to Log</a></div>
+
+      <h1 class="post-title">Post Title</h1>
+      <div class="post-meta">
+        Created <time datetime="2026-05-22">May 22, 2026</time>
+      </div>
+      <div class="post-tags">
+        <!-- Available tag styles: tag-note, tag-post, tag-blog, tag-read, tag-tech -->
+        <span class="tag tag-note">Note</span>
+        <span class="tag tag-tech">Tech</span>
+      </div>
+
+      <div class="post-body" id="post-body">
+        <h2 id="overview">Overview</h2>
+        <p>Short intro to the topic and what motivated this entry.</p>
+
+        <h2 id="key-ideas">Key Ideas</h2>
+        <p>Main content goes here.</p>
+
+        <h3 id="point-a">Point A</h3>
+        <p>Detail.</p>
+
+        <h3 id="point-b">Point B</h3>
+        <p>Detail.</p>
+
+        <h2 id="takeaways">Takeaways</h2>
+        <p>What I want to remember from this.</p>
+      </div>
+
+      <section class="post-references">
+        <h2>References</h2>
+        <ol>
+          <li>Author, <em>Title</em>, Year. <a href="#" target="_blank" rel="noopener">link</a></li>
+        </ol>
+      </section>
+    </article>
+
+    <aside class="post-toc" id="toc">
+      <div class="post-toc-title">On this page</div>
+      <ul id="toc-list"></ul>
+    </aside>
+  </div>
+</div>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">&uarr;</button>
+
+<script>
+  // Build TOC from h2/h3 in #post-body, then highlight the active section on scroll.
+  (function() {
+    var body = document.getElementById('post-body');
+    var tocList = document.getElementById('toc-list');
+    if (!body || !tocList) return;
+    var headings = body.querySelectorAll('h2, h3');
+    var items = [];
+    headings.forEach(function(h) {
+      if (!h.id) {
+        h.id = h.textContent.trim().toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .replace(/\s+/g, '-');
+      }
+      var li = document.createElement('li');
+      li.className = h.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      tocList.appendChild(li);
+      items.push({ id: h.id, link: a, el: h });
+    });
+
+    if (items.length === 0) return;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          items.forEach(function(it) { it.link.classList.remove('active'); });
+          var match = items.find(function(it) { return it.id === e.target.id; });
+          if (match) match.link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+    items.forEach(function(it) { io.observe(it.el); });
+  })();
+
+  // Back-to-top: show after scrolling, smooth-scroll on click.
+  (function() {
+    var btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    function onScroll() {
+      if (window.scrollY > 300) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    onScroll();
+  })();
+</script>
+</body>
+</html>
